@@ -3,4 +3,6 @@ export interface Ropa {
     nombre: string;
     precio: number;
     imagen: string; 
+    descripcion: string;
+    alt: string
 }
