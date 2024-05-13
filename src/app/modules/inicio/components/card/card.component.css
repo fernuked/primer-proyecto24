@@ -20,6 +20,7 @@ p{
     padding: 5px;
 }
 
-imagen{
-    width: 200px;
+.imagen{
+    width: 100px;
+  height: auto;
 }

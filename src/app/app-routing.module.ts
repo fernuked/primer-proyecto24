@@ -12,6 +12,10 @@ const routes: Routes = [
     // .then: promesa que nos devolvera un valor resuelto o rechazado 
   {
     path: '', loadChildren: () => import('./modules/inicio/inicio.module').then(m => m.InicioModule)
+  },
+
+  {
+    path:"",loadChildren:()=>import('./modules/producto/producto.module').then(m=>m.ProductoModule)
   }
 ]
 
