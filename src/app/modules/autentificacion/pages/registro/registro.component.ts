@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario';
+
 
 @Component({
   selector: 'app-registro',
@@ -7,4 +9,38 @@ import { Component } from '@angular/core';
 })
 export class RegistroComponent {
   hide = true;
+
+  // IMPORTAR LA INTERFAZ DE USUARIO -> INICIALIZAR. 
+  usuarios: Usuario = {
+    uid: '', // inicializamos con comillas simples porque es string
+    nombre: '',
+    apellido: '',
+    email: '',
+    rol: '',
+    password: ''
+  }
+  // CREAMOS COLECCION DE USUARIOS, TIPO 'USUARIO' PARA ARRAYS
+  coleccionUsuarios: Usuario[] = [];
+
+  // FUNCION PARA EL REGISTRO DE NUEVOS USUARIOS
+  registrar() {
+
+    // CONSTANTE CREDENCIALES VA A RESGUARDAR LA INFORMACION QUE INGRESE EL USUARIO
+    const credenciales = {
+      uid: this.usuarios.uid,
+      nombre: this.usuarios.nombre,
+      apellido: this.usuarios.apellido,
+      email: this.usuarios.email,
+      rol: this.usuarios.rol,
+      password: this.usuarios.password
+    }
+
+    // enviamos nueva infomacion como un nuevo objeto 
+    this.coleccionUsuarios.push(credenciales)
+
+    // mostramos credenciales x consola
+    console.log(credenciales);
+  }
 }
+
+// Registro de forma local. 
