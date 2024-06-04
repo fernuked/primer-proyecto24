@@ -35,7 +35,7 @@ export class RegistroComponent {
       password: this.usuarios.password
     }
 
-    // enviamos nueva infomacion como un nuevo objeto 
+    // enviamos nueva infomacion como un nuevo objeto 0
     this.coleccionUsuarios.push(credenciales)
 
     // mostramos credenciales x consola
