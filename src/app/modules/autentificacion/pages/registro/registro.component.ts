@@ -36,11 +36,31 @@ export class RegistroComponent {
     }
 
     // enviamos nueva infomacion como un nuevo objeto 0
-    this.coleccionUsuarios.push(credenciales)
 
+    this.coleccionUsuarios.push(credenciales)
     // mostramos credenciales x consola
-    console.log(credenciales);
+    // console.log(credenciales);
+    alert("Te registraste con exito");
+
+    // Llamamos la funcion limpiarInputs() para ejecutarla. 
+    this.limpiarInputs();
+
+  }
+
+  // Registro de forma local. 
+  limpiarInputs() {
+    // En constante "inputs" llamamos a los atributos y la 
+    const inputs = {
+      uid: this.usuarios.uid = '',
+      nombre: this.usuarios.nombre = '',
+      apellido: this.usuarios.apellido = '',
+      email: this.usuarios.email = '',
+      rol: this.usuarios.rol = '',
+      password: this.usuarios.password = ''
+
+    }
   }
 }
 
-// Registro de forma local. 
+
+
