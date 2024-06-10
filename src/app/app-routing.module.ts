@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './modules/inicio/pages/inicio/inicio.component';
 // import { AcercadeComponent } from './secciones/acercade/acercade.component';
 
+
 const routes: Routes = [
    // ruta inicial / principal
   { path: '', component: InicioComponent },

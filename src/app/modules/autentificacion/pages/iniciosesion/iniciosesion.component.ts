@@ -97,8 +97,6 @@ export class IniciosesionComponent {
 
 
 
-
-
 //   usuarioss: Usuario = {
 //     uid: '',
 //     nombre: '',
