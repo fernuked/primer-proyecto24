@@ -66,14 +66,14 @@ export class RegistroComponent {
       })
 
 
-    // enviamos nueva infomacion como un nuevo objeto a la coleccion
-    this.coleccionUsuarios.push(credenciales)
-    // mostramos credenciales x consola
-    // console.log(credenciales);
-    alert("Te registraste con exito");
+    // // enviamos nueva infomacion como un nuevo objeto a la coleccion
+    // this.coleccionUsuarios.push(credenciales)
+    // // mostramos credenciales x consola
+    // // console.log(credenciales);
+    // alert("Te registraste con exito");
 
-    // Llamamos la funcion limpiarInputs() para ejecutarla.
-    this.limpiarInputs();
+    // // Llamamos la funcion limpiarInputs() para ejecutarla.
+    // this.limpiarInputs();
 
   }
 

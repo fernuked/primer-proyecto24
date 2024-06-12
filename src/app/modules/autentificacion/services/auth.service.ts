@@ -19,6 +19,7 @@ export class AuthService {
   iniciarSesion(email: string, password: string) {
     // Validar informacion del usuario -> saber si existe en la coleccion. 
     return this.auth.signInWithEmailAndPassword(email, password)
+    
   }
 
   // Funcion para cerrar sesion. 

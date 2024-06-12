@@ -9,7 +9,7 @@ const routes: Routes = [
     path:'',component:InicioComponent
   },
   {
-    path:'Inicio', component:InicioComponent
+    path:'inicio', component:InicioComponent
   },
 
  
