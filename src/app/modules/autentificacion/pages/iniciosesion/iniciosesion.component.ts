@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
+import { AuthService} from '../../services/auth.service';
+import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-iniciosesion',
@@ -9,42 +12,49 @@ import { Usuario } from 'src/app/models/usuario';
 export class IniciosesionComponent {
   hide = true;
   // LOCAL
+
   // DEFINIMOS COLECCION LOCAL DE USUARIOS.
-  public conleccionUsuariosLocales: Usuario[];
+  // public conleccionUsuariosLocales: Usuario[];
 
-  constructor() {
-    this.conleccionUsuariosLocales = [
-      {
-        uid: '',
-        nombre: 'santi',
-        apellido: 'nuñez',
-        email: 'santiagonuñe@gmail.com',
-        rol: 'vis',
-        password: 'abc1234'
-      },
+  // constructor() {
+  //   this.conleccionUsuariosLocales = [
+  //     {
+  //       uid: '',
+  //       nombre: 'santi',
+  //       apellido: 'nuñez',
+  //       email: 'santiagonuñe@gmail.com',
+  //       rol: 'vis',
+  //       password: 'abc1234'
+  //     },
 
-      {
-        uid: '',
-        nombre: 'mili',
-        apellido: 'romero',
-        email: 'miliromero@gmail.com',
-        rol: 'vis',
-        password: 'abc5678'
-      },
+  //     {
+  //       uid: '',
+  //       nombre: 'mili',
+  //       apellido: 'romero',
+  //       email: 'miliromero@gmail.com',
+  //       rol: 'vis',
+  //       password: 'abc5678'
+  //     },
 
-      {
-        uid: '',
-        nombre: '',
-        apellido: '',
-        email: '',
-        rol: '',
-        password: ''
-      }
-    ]
-  }
-  // fin local. 
+  //     {
+  //       uid: '',
+  //       nombre: '',
+  //       apellido: '',
+  //       email: '',
+  //       rol: '',
+  //       password: ''
+  //     }
+  //   ]
+  // }
+  // // fin local. 
   // definimos la interfaz usuario.
+  constructor(
+    public servicioAuth: AuthService,
+    public serviciosFirestore: FirestoreService,
+    public servicioRutas: Router
+  ){}
   usuarios: Usuario = {
+
     uid: '',
     nombre: '',
     apellido: '',
@@ -54,16 +64,30 @@ export class IniciosesionComponent {
   }
 
   // FUNCION INICIAR SESION. 
-  Iniciosesion() {
+  async Iniciosesion() {
     const credenciales = {
-      uid: this.usuarios.uid,
-      nombre: this.usuarios.nombre,
-      apellido: this.usuarios.apellido,
       email: this.usuarios.email,
-      rol: this.usuarios.rol,
       password: this.usuarios.password
     }
 
+    const res = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password).then(res => {
+    alert("se pudo ingresar con exito");
+    this.servicioRutas.navigate(['/inicio']);
+    })
+    .catch (err => {
+      alert("hubo un problema al iniciar sesion." + err );
+      this.limpiarImputs
+    })
+    
+    // const credenciales = {
+    //   uid: this.usuarios.uid,
+    //   nombre: this.usuarios.nombre,
+    //   apellido: this.usuarios.apellido,
+    //   email: this.usuarios.email,
+    //   rol: this.usuarios.rol,
+    //   password: this.usuarios.password
+    }
+/*
     for (let i = 0; i < this.conleccionUsuariosLocales.length; i++) {
       const usuariolocal = this.conleccionUsuariosLocales[i];
 
@@ -78,6 +102,7 @@ export class IniciosesionComponent {
       }
     }
   }
+    */
 }
 
 

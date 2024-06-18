@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
 // importamos servicio de Autentificacio
 import { AuthService } from '../../services/auth.service';
+import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
 // importamos componentes de rutas de Angular
 import { Router } from '@angular/router';
 
@@ -28,6 +29,7 @@ export class RegistroComponent {
 
   constructor(
     public servicioAuth: AuthService,
+    public servicioFirestore: FirestoreService,
     public servicioRutas: Router
   ) { }
 
@@ -77,19 +79,37 @@ export class RegistroComponent {
 
   }
 
-  // Registro de forma local.
-  limpiarInputs() {
-    // En constante "inputs" llamamos a los atributos y la
-    const inputs = {
-      uid: this.usuarios.uid = '',
-      nombre: this.usuarios.nombre = '',
-      apellido: this.usuarios.apellido = '',
-      email: this.usuarios.email = '',
-      rol: this.usuarios.rol = '',
-      password: this.usuarios.password = ''
+  // Funcion que accede a sevicios firestore y envia la infomacion agrega junto al uid.
 
-    }
+  async guadarUsuario() {
+    this.servicioFirestore.agregarUusario(this.usuarios, this.usuarios.uid).then(res => {
+      console.log(this.usuarios);
+    })
+      .catch(err => {
+        console.log('error =>', err);
+      })
   }
+
+  const uid = await this.servicioAuth.obtenerUid();
+//  se le asigna al atributo de la interfaz esta constante. 
+ this.usuarios.uid = uid;
+//  llamamos a a funsion guardarusuario()
+this.guardarUsuario();
+
+
+// Registro de forma local.
+limpiarInputs() {
+  // En constante "inputs" llamamos a los atributos y la
+  const inputs = {
+    uid: this.usuarios.uid = '',
+    nombre: this.usuarios.nombre = '',
+    apellido: this.usuarios.apellido = '',
+    email: this.usuarios.email = '',
+    rol: this.usuarios.rol = '',
+    password: this.usuarios.password = ''
+
+  }
+}
 }
 
 
