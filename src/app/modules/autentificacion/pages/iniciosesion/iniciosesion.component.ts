@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
-import { AuthService} from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
 import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-iniciosesion',
@@ -52,7 +53,7 @@ export class IniciosesionComponent {
     public servicioAuth: AuthService,
     public serviciosFirestore: FirestoreService,
     public servicioRutas: Router
-  ){}
+  ) { }
   usuarios: Usuario = {
 
     uid: '',
@@ -70,15 +71,43 @@ export class IniciosesionComponent {
       password: this.usuarios.password
     }
 
+    try{
+      // Obtenemos usuario de la bd. 
+      const usuariosBD = await this.servicioAuth.obtenerUsuario(credenciales.email);
+
+      if (!usuariosBD || usuariosBD.empty) {
+        alert("correo electronico no esta registrado.");
+        this.limpiarImputs() ;
+        return;
+      }
+
+      const usuarioDoc = usuariosBD.docs[0];
+
+      const UsarioData = usuarioDoc.data() as Usuario;
+
+      const hashedPassword = CryptoJS.SHA256(credenciales.password).toString();
+
+      if (hashedPassword != usuariosData.password) {
+        alert("su contraseña es incorrecta");
+        this.usuarios.password = '';
+        return;
+      }
+      
     const res = await this.servicioAuth.iniciarSesion(credenciales.email, credenciales.password).then(res => {
-    alert("se pudo ingresar con exito");
-    this.servicioRutas.navigate(['/inicio']);
+      alert("se pudo ingresar con exito");
+      this.servicioRutas.navigate(['/inicio']);
     })
-    .catch (err => {
-      alert("hubo un problema al iniciar sesion." + err );
-      this.limpiarImputs
-    })
-    
+      .catch(err => {
+        alert('Hubo un problema al iniciar sesión :( ' + err);
+
+        this.limpiarInputs();
+      })
+  } catch(error) {
+    this.limpiarImputs();
+  }
+    }
+}
+
     // const credenciales = {
     //   uid: this.usuarios.uid,
     //   nombre: this.usuarios.nombre,
@@ -86,42 +115,23 @@ export class IniciosesionComponent {
     //   email: this.usuarios.email,
     //   rol: this.usuarios.rol,
     //   password: this.usuarios.password
-    }
-/*
-    for (let i = 0; i < this.conleccionUsuariosLocales.length; i++) {
-      const usuariolocal = this.conleccionUsuariosLocales[i];
-
-      if (usuariolocal.nombre == credenciales.nombre && usuariolocal.apellido === credenciales.apellido &&
-        usuariolocal.email === credenciales.email && usuariolocal.password === credenciales.password && usuariolocal.rol === credenciales.rol) {
-        // Notificamos al usuario que pudo ingresar. 
-        alert("Ingresaste con exito!")
-        break;  // Paramos la funcion. 
-      } else {
-        alert("ocurrio un problema jeje.")
-        break; // Paramos la funcion. 
+  
+  /*
+      for (let i = 0; i < this.conleccionUsuariosLocales.length; i++) {
+        const usuariolocal = this.conleccionUsuariosLocales[i];
+  
+        if (usuariolocal.nombre == credenciales.nombre && usuariolocal.apellido === credenciales.apellido &&
+          usuariolocal.email === credenciales.email && usuariolocal.password === credenciales.password && usuariolocal.rol === credenciales.rol) {
+          // Notificamos al usuario que pudo ingresar. 
+          alert("Ingresaste con exito!")
+          break;  // Paramos la funcion. 
+        } else {
+          alert("ocurrio un problema jeje.")
+          break; // Paramos la funcion. 
+        }
       }
     }
-  }
-    */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      */
 //   usuarioss: Usuario = {
 //     uid: '',
 //     nombre: '',
