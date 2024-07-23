@@ -98,7 +98,6 @@ export class RegistroComponent {
   }
 
   // Funcion que accede a sevicios firestore y envia la infomacion agrega junto al uid.
-
   async guadarUsuario() {
     this.servicioFirestore.agregarUusario(this.usuarios, this.usuarios.uid).then(res => {
       console.log(this.usuarios);
