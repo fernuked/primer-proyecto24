@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 // IMPORTAMOS PAQUETERIA DE CRIPTACION. 
 import * as CryptoJS from 'crypto-js';
 
+// Alertas personalizadas. 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -62,14 +65,24 @@ export class RegistroComponent {
     const res = await this.servicioAuth.registrar(credenciales.email, credenciales.password)
       // el metodo then es una promesa que devuelve el mismo valor
       .then(rest => {
-        alert("Se pudo registrar con exitoooo :p");
+        Swal.fire({
+          title: "Buen trabajo!",
+          text: "Se pudo registrar con exito :)",
+          icon: "success"
+        });
+        
+        // HACER LO MISMO EN INICIO! 
 
         // el metodo NAVIGATE nos redirecciona a otra visita
         this.servicioRutas.navigate(['/inicio']);
       })
       // El metodo cath captura una falla y la vuelve un error cuando la promesa salga mal
       .catch(error => {
-        alert("hubo un problema o un error al registrar un nuevo usuario :( \n" + error)
+        Swal.fire({
+          title: "Hubo un error!",
+          text: "No pudo registrarse :(",
+          icon: "success"
+        });
       })
 
 
