@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path:"",loadChildren:()=>import('./modules/autentificacion/autentificacion.module').then(m=>m.AutentificacionModule)
   }
+
+  {
+    path:"",loadChildren:()=>import('./modules/admin/admin.module').then(m=>m.AdminModule)
+  }
 ]
 
 @NgModule({
