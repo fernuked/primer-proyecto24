@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './pages/admin/admin.component';
 import { TableComponent } from './components/table/table.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -13,11 +16,17 @@ import { TableComponent } from './components/table/table.component';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule
   ], 
   exports: [
     AdminComponent,
-    TableComponent
+    TableComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule
   ]
 })
 export class AdminModule { }
