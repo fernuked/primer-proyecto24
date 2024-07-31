@@ -46,11 +46,11 @@ export class AuthService {
     }
   } 
 
-  obtenerUsuario(){
+  obtenerUsuario(email: string){
     // retornamos del servicio firestore la coleccion de usuarios, buscamos referencia en los email 
     // registrados y los comparamos con lo que ingrese el usuario al ingresar sesion y lo obtiene 
     // con el '.get()', lo vuelve una promesa RESUELTO O RECHAZADO.
     
-    return this.servicioFirestore.collection('usuarios', ref => ref.where('email',"==" email)).get().toPromise();
+    return this.servicioFirestore.collection('usuarios', ref => ref.where('email',"==", email)).get().toPromise();
   }
 }

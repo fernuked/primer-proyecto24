@@ -78,7 +78,7 @@ export class IniciosesionComponent {
       // Condicional verificaba que ese usuario de la base de datos existiera o que sea igual al de nuestra coleccion. 
       if (!usuariosBD || usuariosBD.empty) {
         alert("Correo electronico no esta registrado.");
-        this.limpiarImputs() ;
+        this.limpiarInputs() ;
         return;
       }
 
@@ -86,7 +86,7 @@ export class IniciosesionComponent {
       const usuarioDoc = usuariosBD.docs[0];
 
       // Extrae los datos del documento en forma de objeto y se especifica que va a ser del tipo usuario (se refiere a la interfac de usario de nuestros modelos)
-      const UsarioData = usuarioDoc.data() as Usuario;
+      const usuariosData = usuarioDoc.data() as Usuario;
 
       // Encargada de encriptar la contraseña que el usaurio envia mediante el Inicio de sesion.
       const hashedPassword = CryptoJS.SHA256(credenciales.password).toString();
@@ -107,10 +107,21 @@ export class IniciosesionComponent {
         this.limpiarInputs();
       })
   } catch(error) {
-    this.limpiarImputs();
+    this.limpiarInputs();
   }
     }
-
+  
+    limpiarInputs() {
+      const inputs = {
+        uid: this.usuarios.uid = '',
+        nombre: this.usuarios.nombre = '',
+        apellido: this.usuarios.apellido = '',
+        email: this.usuarios.email = '',
+        rol: this.usuarios.rol = '',
+        password: this.usuarios.password = ''
+      }
+    }
+  
 }
 
     // const credenciales = {
