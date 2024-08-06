@@ -25,9 +25,14 @@ export class TableComponent {
     alt: new FormControl('', Validators.required)
   })
 
-  constructor(public servicioCrud: CrudService) { }
+  constructor(public servicioCrud: CrudService) { 
+  }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.servicioCrud.obetenerProductos().subscribe(producto => {
+      this.coleccionProductos = producto;
+    })
+  }
   async agregarProducto() {
     if (this.producto.valid) {
       let nuevoProducto: Producto = {
