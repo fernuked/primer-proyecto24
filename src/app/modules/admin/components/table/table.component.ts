@@ -12,6 +12,9 @@ export class TableComponent {
   // Creamos coleccion local de productos -> la definimos como array
   coleccionProductos: Producto[] = [];
 
+  productoSeleccionado!: Producto; // TOMA VALORES VACIOS
+  modalVisibleProducto: boolean = false
+
   // definimos formulario para los productos.
   // atributos alfanumericos (string) se inicializan con comillas simples 
   // atributos numericos (number) se inicialozan con 0 (cero jejeje)
@@ -31,6 +34,9 @@ export class TableComponent {
   ngOnInit(): void { 
     this.servicioCrud.obetenerProductos().subscribe(producto => {
       this.coleccionProductos = producto;
+
+      // SUSCRIBE => NOTIFICA CUANDO HACEMOS UNA CAPTURA Y ACTIVA LAS NOTIFICACIONES 
+      // D TODOS LOS CAMBIOS QUE HAYAN EN EL SISTEMA
     })
   }
   async agregarProducto() {
@@ -53,5 +59,20 @@ export class TableComponent {
         });
     };
 
+  }
+
+  mostrarBorrar(productoSeleccionado : Producto) {
+    this.modalVisibleProducto = true;
+
+    this.productoSeleccionado = productoSeleccionado;
+  }
+
+  borrarProducto(){
+  this.servicioCrud.eliminarProducto(this.productoSeleccionado.idProducto).then(respuesta => {
+    alert("se ha podido eliminar con exito")
+  })
+  .catch(error => {
+    alert("ha ocurrido un error al eliminar prodcuto:\n"+error)
+  });
   }
 }
