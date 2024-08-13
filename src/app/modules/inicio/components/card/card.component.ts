@@ -13,17 +13,26 @@ export class CardComponent {
     this.info = [
       {
         id: "",
-        nombre: "campera",
-        precio: 52.00,
-        imagen: "https://http2.mlstatic.com/D_NQ_NP_713547-MLA50302812877_062022-O.webp",
+        nombre: "Facturas surtidas X DOC",
+        precio: 7.000,
+        imagen: "./assets/card1.png",
         alt: "",
         descripcion: ""
       },
       {
         id: "",
-        nombre: "campera negra",
-        precio: 52.00,
-        imagen: "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw2ca0518a/products/NI_BV2645-010/NI_BV2645-010-1.JPG",
+        nombre: "Churros X DOC",
+        precio: 4.000,
+        imagen: "./assets/card2.png",
+        alt: "",
+        descripcion: ""
+      },
+
+      {
+        id: "",
+        nombre: "Selva negra 1KG",
+        precio: 10.000,
+        imagen: "./assets/card3.png",
         alt: "",
         descripcion: ""
       }
