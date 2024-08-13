@@ -32,7 +32,7 @@
                 </button>
 
                 <button id="btn-edit" title="Eliminar" type="button" class="btn btn-outline-danger" 
-                data-bs-toggle="=modal" data-bs-target="agregarProducto" (click)="mostrarBorrar(producto)">
+                data-bs-toggle="modal" data-bs-target="#eliminarProducto" (click)="mostrarBorrar(col)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>
@@ -59,18 +59,17 @@
             <div [formGroup]="producto" class="modal-body">
                 <div class="mb-3">
                     <Label class="form-label">Ingrese nombre de producto</Label>
-                    <input class="form-control" type="text" formControlName="nombre" placeholder="Ej.:" Tarta de ricota>
+                    <input class="form-control" type="text" formControlName="nombre" placeholder="Ej Tarta de ricota" >
                 </div>
 
                 <div class="mb-3">
                     <Label class="form-label">Ingrese precio del producto</Label>
-                    <input class="form-control" type="number" formControlName="precio" placeholder="Ej.:" 3.000$>
+                    <input class="form-control" type="number" formControlName="precio" placeholder="Ej 3.000$" >
                 </div>
 
                 <div class="mb-3">
                     <Label class="form-label">Ingrese descripccion del producto</Label>
-                    <input class="form-control" type="text" formControlName="descripccion" placeholder="Ej.:" Masa hecha
-                        a mano, con...>
+                    <input class="form-control" type="text" formControlName="descripccion" placeholder="Ej Masa hecha a mano, con..." >
                 </div>
 
 
