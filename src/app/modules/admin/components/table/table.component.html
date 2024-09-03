@@ -27,7 +27,8 @@
 
             <!-- ACCIONES. -->
             <td>
-                <button id="btn-edit" title="Editar" type="button" class="btn btn-outline-warning">
+                <button id="btn-edit" title="Editar" type="button" class="btn btn-outline-warning"
+                 data-bs-toggle="modal" data-bs-target="#editarProducto" (click)="mostrarEditar(col)">
                     <mat-icon>edit</mat-icon>
                 </button>
 
@@ -77,6 +78,11 @@
                     <Label class="form-label">Ingrese Imagen del producto</Label>
                     <input class="form-control" type="text" formControlName="imagen" placeholder="Insertar">
                 </div>
+                
+                <div class="mb-3">
+                    <Label class="form-label">Ingrese ALT</Label>
+                    <input class="form-control" type="text" formControlName="alt" placeholder="Insertar">
+                </div>
 
                 <div class="mb-3">
                     <Label class="form-label">Seleccione una categoria</Label>
@@ -98,10 +104,7 @@
     </div>
 </div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button>
+
   
   <!-- Modal -->
   <div class="modal fade" id="eliminarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -115,8 +118,8 @@
           ...
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="eliminarProducto">eliminar producto</button>
         </div>
       </div>
     </div>

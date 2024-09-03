@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Producto } from 'src/app/models/producto';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Action } from 'rxjs/internal/scheduler/Action';
-import { map, pipe } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { map } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +22,11 @@ export class CrudService {
     return new Promise(async (resolve, reject) => {
       try {
         // Creamos numero identificativo para el producto en la base de datos
-        const idProducto = this.database.createId();
+        const idProducto = this.database.createId()
         // Asignamos id creando el atributo IdProducto de la interfaz Producto
-        producto.idProducto = idProducto;
+        producto.idProducto = idProducto
 
-        const resultado = await this.productosCollection.doc(idProducto).set(producto);
+        const resultado = await this.productosCollection.doc(idProducto).set(producto)
 
         resolve(resultado);
       } catch (error) {
@@ -63,7 +62,7 @@ export class CrudService {
   eliminarProducto(idProducto: string) {
 return new Promise((resolve, reject) => {
   try {
-    const respuesta = this.productosCollection.doc(idProducto).delete();
+    const respuesta = this.productosCollection.doc(idProducto).delete()
     resolve (respuesta);
 
   }

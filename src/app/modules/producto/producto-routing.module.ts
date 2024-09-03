@@ -17,7 +17,11 @@ const routes: Routes = [
   },
   {
     path: "bordados", component: BordadosComponent
+  },
+  {
+    path:"general", component: ProductoComponent
   }
+
 ];
 
 @NgModule({
