@@ -28,10 +28,10 @@ export class TableComponent {
     alt: new FormControl('', Validators.required)
   })
 
-  constructor(public servicioCrud: CrudService) { 
+  constructor(public servicioCrud: CrudService) {
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.servicioCrud.obetenerProductos().subscribe(producto => {
       this.coleccionProductos = producto;
 
@@ -61,18 +61,51 @@ export class TableComponent {
 
   }
 
-  mostrarBorrar(productoSeleccionado : Producto) {
+  mostrarBorrar(productoSeleccionado: Producto) {
     this.modalVisibleProducto = true;
 
     this.productoSeleccionado = productoSeleccionado;
   }
 
-  borrarProducto(){
-  this.servicioCrud.eliminarProducto(this.productoSeleccionado.idProducto).then(respuesta => {
-    alert("se ha podido eliminar con exito")
-  })
-  .catch(error => {
-    alert("ha ocurrido un error al eliminar prodcuto:\n"+error)
-  });
+  borrarProducto() {
+    this.servicioCrud.eliminarProducto(this.productoSeleccionado.idProducto).then(respuesta => {
+      alert("se ha podido eliminar con exito")
+    })
+      .catch(error => {
+        alert("ha ocurrido un error al eliminar prodcuto:\n" + error)
+      });
+  }
+
+  mostrarEditar(productoSeleccionado: Producto) {
+    this.productoSeleccionado = productoSeleccionado
+    this.producto.setValue({
+      nombre: productoSeleccionado.nombre,
+      precio: productoSeleccionado.precio,
+      descripccion: productoSeleccionado.descripccion,
+      categoria: productoSeleccionado.categoria,
+      imagen: productoSeleccionado.imagen,
+      alt: productoSeleccionado.alt
+    })
+  }
+
+  editarProducto() {
+    let datos: Producto = {
+      idProducto: this.productoSeleccionado.idProducto,
+      nombre: this.producto.value.nombre!,
+      precio: this.producto.value.precio!,
+      descripccion: this.producto.value.descripccion!,
+      categoria: this.producto.value.categoria!,
+      imagen: this.producto.value.imagen!,
+      alt: this.producto.value.alt!,
+    }
+    this.servicioCrud.modificarProducto(this.productoSeleccionado.idProducto, datos)
+      .then(producto => {
+        alert("el producto ha sido modificado con exito!")
+      })
+      .catch(error => {
+        alert("hubo un problema:(")
+      }
+      )
   }
 }
+
