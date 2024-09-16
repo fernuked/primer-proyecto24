@@ -13,7 +13,10 @@ export class TableComponent {
   coleccionProductos: Producto[] = [];
 
   productoSeleccionado!: Producto; // TOMA VALORES VACIOS
-  modalVisibleProducto: boolean = false
+  modalVisibleProducto: boolean = false;
+
+  nombreImagen!: string;
+  imagen!: string;
 
   // definimos formulario para los productos.
   // atributos alfanumericos (string) se inicializan con comillas simples 
@@ -24,7 +27,7 @@ export class TableComponent {
     precio: new FormControl(0, Validators.required),
     descripccion: new FormControl('', Validators.required),
     categoria: new FormControl('', Validators.required),
-    imagen: new FormControl('', Validators.required),
+    // imagen: new FormControl('', Validators.required),
     alt: new FormControl('', Validators.required)
   })
 
@@ -47,18 +50,43 @@ export class TableComponent {
         precio: this.producto.value.precio!,
         descripccion: this.producto.value.descripccion!,
         categoria: this.producto.value.categoria!,
-        imagen: this.producto.value.imagen!,
-        alt: this.producto.value.alt!,
+        imagen: '',
+        alt: ''
       }
-      await this.servicioCrud.crearProducto(nuevoProducto)
-        .then(producto => {
-          alert("Ha agregado un nuevo producto con exito")
-        })
-        .catch(error => {
-          alert("Ha ocurrido un error al cargar el prodcuto. ");
-        });
-    };
+      await this.servicioCrud.subirImagen(this.nombreImagen, this.imagen, "productos")
+        .then(resp => {
+          this.servicioCrud.obtenerUrlImagen(resp)
+            .then(url => {
+              this.servicioCrud.crearProducto(nuevoProducto, url)
 
+                .then(producto => {
+                  alert("Ha agregado un nuevo producto con exito")
+                  this.producto.reset()
+                })
+                .catch(error => {
+                  alert("Ha ocurrido un error al cargar el prodcuto. ");
+                });
+            });
+
+        })
+    }
+  }
+
+  cargarImagen(evento: any) {
+    let archivo = evento.target.files[0];
+    let reader = new FileReader();
+
+    if (archivo != undefined) {
+      reader.readAsDataURL(archivo);
+      reader.onloadend = () => {
+        let url = reader.result
+
+        if(url != null){
+          this.nombreImagen = archivo.name;
+          this.imagen = url.toString();
+        }
+      }
+    }
   }
 
   mostrarBorrar(productoSeleccionado: Producto) {
