@@ -81,7 +81,7 @@ export class TableComponent {
       reader.onloadend = () => {
         let url = reader.result
 
-        if(url != null){
+        if (url != null) {
           this.nombreImagen = archivo.name;
           this.imagen = url.toString();
         }
@@ -96,7 +96,7 @@ export class TableComponent {
   }
 
   borrarProducto() {
-    this.servicioCrud.eliminarProducto(this.productoSeleccionado.idProducto).then(respuesta => {
+    this.servicioCrud.eliminarProducto(this.productoSeleccionado.idProducto, this.productoSeleccionado.imagen).then(respuesta => {
       alert("se ha podido eliminar con exito")
     })
       .catch(error => {
@@ -111,7 +111,7 @@ export class TableComponent {
       precio: productoSeleccionado.precio,
       descripccion: productoSeleccionado.descripccion,
       categoria: productoSeleccionado.categoria,
-      imagen: productoSeleccionado.imagen,
+      // imagen: productoSeleccionado.imagen,
       alt: productoSeleccionado.alt
     })
   }
@@ -123,17 +123,46 @@ export class TableComponent {
       precio: this.producto.value.precio!,
       descripccion: this.producto.value.descripccion!,
       categoria: this.producto.value.categoria!,
-      imagen: this.producto.value.imagen!,
+      imagen: this.productoSeleccionado.imagen,
       alt: this.producto.value.alt!,
     }
+
+    if (this.imagen) {
+      this.servicioCrud.subirImagen(this.nombreImagen, this.imagen, "productos")
+        .then(resp => {
+          this.servicioCrud.obtenerUrlImagen(resp)
+          .then(url => {
+            datos.imagen = url;
+
+
+            this.actualizarProducto(datos);
+
+            this.producto.reset();
+          })
+          .catch(error => {
+            alert("Ocurrio un error");
+
+            this.producto.reset();
+          })
+        })
+
+    } else {
+       this.actualizarProducto(datos);
+
+    }
+
+  
+  }
+
+  actualizarProducto(){
     this.servicioCrud.modificarProducto(this.productoSeleccionado.idProducto, datos)
-      .then(producto => {
-        alert("el producto ha sido modificado con exito!")
-      })
-      .catch(error => {
-        alert("hubo un problema:(")
-      }
-      )
+    .then(producto => {
+      alert("el producto ha sido modificado con exito!")
+    })
+    .catch(error => {
+      alert("hubo un problema:(")
+    }
+    )
   }
 }
 
